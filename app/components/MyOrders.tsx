@@ -50,7 +50,6 @@ const MyOrders = ({ initialOrders }: { initialOrders: IOrderResponse }) => {
                         </tbody>
                     </table>
 
-                    {/* Pagination Controls */}
                    
                 </div>
             )}

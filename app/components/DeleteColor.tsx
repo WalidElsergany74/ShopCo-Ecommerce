@@ -23,7 +23,7 @@ const DeleteColor = ({ isOpenDelete, toggleDialogDelete, subs }: IProps) => {
     setIsLoading(true);
 
     try {
-      await axios.delete(`http://localhost:1337/api/colors/${subs?.documentId}`);
+      await axios.delete(`${process.env.NEXT_STRAPI_URL}/colors/${subs?.documentId}`);
 
       toast.success('Color Deleted successfully');
       router.refresh(); 

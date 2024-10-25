@@ -25,7 +25,7 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
       if (userId) {
         try {
           const response = await axios.get(
-            `http://localhost:1337/api/carts?populate=cart_items&filters[userId][$eq]=${userId}`
+            `${process.env.NEXT_STRAPI_URL}/carts?populate=cart_items&filters[userId][$eq]=${userId}`
           );
           const cartData = response.data.data[0]; // Assuming the user has only one cart
           setExistingCart(cartData);
@@ -109,7 +109,7 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
       }
 
       const shippingResponse = await axios.post(
-        'http://localhost:1337/api/shippings',
+        `${process.env.NEXT_STRAPI_URL}/shippings`,
         formData
       );
 
@@ -127,13 +127,13 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
         };
 
         const orderResponse = await axios.post(
-          'http://localhost:1337/api/orders?populate=*',
+          `${process.env.NEXT_STRAPI_URL}/orders?populate=*`,
           { data: orderData }
         );
 
         if (orderResponse.status === 200 || orderResponse.status === 201) {
           const cartId = existingCart?.documentId;
-          await axios.delete(`http://localhost:1337/api/carts/${cartId}`);
+          await axios.delete(`${process.env.NEXT_STRAPI_URL}/carts/${cartId}`);
         }
       }
     } catch (error) {

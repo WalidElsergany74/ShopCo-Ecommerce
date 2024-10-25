@@ -52,7 +52,7 @@ const SingleProduct = ({product , products} : {product : IProduct , products : I
       
       // استخدام SWR لجلب بيانات السلة
       const { data: existingCart, mutate } = useSWR(
-        userId ? `http://localhost:1337/api/carts?populate=cart_items&filters[userId][$eq]=${userId}` : null,
+        userId ? `${process.env.NEXT_STRAPI_URL}/carts?populate=cart_items&filters[userId][$eq]=${userId}` : null,
         fetcher, {refreshInterval : 1000}
       );
 
@@ -90,7 +90,7 @@ const SingleProduct = ({product , products} : {product : IProduct , products : I
             if (!existingCart || existingCart.length === 0) {
                 // إنشاء سلة جديدة
                 console.log("Creating a new cart with data:", cartData);
-                const newCartResponse = await axios.post(`http://localhost:1337/api/carts`, {
+                const newCartResponse = await axios.post(`${process.env.NEXT_STRAPI_URL}/carts`, {
                     data: {
                         userId: userId,
                         cart_items: cartProducts.map((item) => ({
@@ -119,7 +119,7 @@ const SingleProduct = ({product , products} : {product : IProduct , products : I
     
                 // تحديث عنصر السلة
                 console.log("Updating existing cart item:", existingItem);
-                await axios.put(`http://localhost:1337/api/cart-items/${existingItem.documentId}`, {
+                await axios.put(`${process.env.NEXT_STRAPI_URL}/cart-items/${existingItem.documentId}`, {
                   data: {
                               quantity: newQuantity,
                               totalItem: updatedTotalItemPrice,
@@ -133,13 +133,13 @@ const SingleProduct = ({product , products} : {product : IProduct , products : I
             } else {
                 // إضافة عنصر جديد إلى السلة
                 console.log("Adding new item to cart:", cartData);
-                const addResponse = await axios.post("http://localhost:1337/api/cart-items", { data: cartData });
+                const addResponse = await axios.post(`${process.env.NEXT_STRAPI_URL}/cart-items`, { data: cartData });
     
                 const updatedCartItems = [...existingCartItems, addResponse.data.data];
     
                 // تحديث السلة بدمج العناصر القديمة والجديدة
                 console.log("Updating cart with new items:", updatedCartItems);
-                await axios.put(`http://localhost:1337/api/carts/${updatedCart.documentId}`, {
+                await axios.put(`${process.env.NEXT_STRAPI_URL}/carts/${updatedCart.documentId}`, {
                     data: {
                         cart_items: updatedCartItems.map((item: ICartItem) => item.documentId),
                     },

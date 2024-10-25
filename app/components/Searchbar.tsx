@@ -22,7 +22,7 @@ const Searchbar = ({ searchVisible }: { searchVisible: boolean }) => {
   
 
   const { data: productsData } = useSWR(
-    `http://localhost:1337/api/products?populate=*`,
+    `${process.env.NEXT_STRAPI_URL}/products?populate=*`,
     fetcher
 );
 

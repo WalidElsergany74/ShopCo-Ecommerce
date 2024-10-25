@@ -78,7 +78,7 @@ const ProductsCo = ({data , id , colors  } : {data : IFiltered[] , id : string ,
          }
 
   const { data: productsData, isLoading } = useSWR(
-      `http://localhost:1337/api/products?populate=*&filters[category][documentId]=${id}${subCategoriesQuery}${colorsQuery}&filters[price][$lte]=${maxPrice}&${sortQuery}`,
+      `${process.env.NEXT_STRAPI_URL}/products?populate=*&filters[category][documentId]=${id}${subCategoriesQuery}${colorsQuery}&filters[price][$lte]=${maxPrice}&${sortQuery}`,
       fetcher
   );
 

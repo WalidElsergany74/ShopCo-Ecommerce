@@ -44,7 +44,7 @@ const AddColor = ({ isOpen, toggleDialog  }: IProps) => {
       
       
           // Send the category data to Strapi
-          const response = await axios.post("http://localhost:1337/api/colors?populate=*", formData);
+          const response = await axios.post(`${process.env.NEXT_STRAPI_URL}/colors?populate=*`, formData);
       
           console.log("Response data:", response.data);
       

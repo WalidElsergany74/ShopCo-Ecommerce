@@ -23,7 +23,7 @@ const DeleteSize = ({ isOpenDelete, toggleDialogDelete, subs }: IProps) => {
     setIsLoading(true);
 
     try {
-      await axios.delete(`http://localhost:1337/api/sizes/${subs?.documentId}`);
+      await axios.delete(`${process.env.NEXT_STRAPI_URL}/sizes/${subs?.documentId}`);
 
       toast.success('Size Deleted successfully');
       router.refresh(); 

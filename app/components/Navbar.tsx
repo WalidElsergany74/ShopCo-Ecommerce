@@ -46,7 +46,7 @@ const Navbar = () => {
     };
     
     const { data: cartData } = useSWR(
-      userId ? `http://localhost:1337/api/carts?populate=cart_items&filters[userId][$eq]=${userId}` : null,
+      userId ? `${process.env.NEXT_STRAPI_URL}/carts?populate=cart_items&filters[userId][$eq]=${userId}` : null,
       fetcher,
       { refreshInterval: 1000 }
     );
@@ -61,7 +61,7 @@ const Navbar = () => {
    
 
   const { data: productsData } = useSWR(
-    `http://localhost:1337/api/products?populate=*`,
+    `${process.env.NEXT_STRAPI_URL}/products?populate=*`,
     fetcher
 );
 
@@ -80,7 +80,7 @@ useEffect(() => {
 }, [ searchQuery]); 
 
   const { data: categories  } = useSWR(
-    `http://localhost:1337/api/categories`,
+    `${process.env.NEXT_STRAPI_URL}/categories`,
     fetcher
 );
 

@@ -29,7 +29,7 @@ const OrderDetails = ({ order } : {order : IOrder}) => {
     const handleClick = async () => {
         setIsLoading(true)
       try {
-        await axios.put(`http://localhost:1337/api/orders/${order.documentId}`, {
+        await axios.put(`${process.env.NEXT_STRAPI_URL}/orders/${order.documentId}`, {
           data: {
             orderstatus: status,
           },

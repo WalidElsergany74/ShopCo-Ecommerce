@@ -40,7 +40,7 @@ const EditDialog = ({ isOpenEdit, toggleDialogEdit, subs }: IProps) => {
       formData.append('data[title]', title || '');
 
       // Send the category data to Strapi
-      const response = await axios.put(`http://localhost:1337/api/sub-categories/${subs?.documentId}?populate=*`, formData);
+      const response = await axios.put(`${process.env.NEXT_STRAPI_URL}/sub-categories/${subs?.documentId}?populate=*`, formData);
 
       console.log('Response data:', response.data);
 
